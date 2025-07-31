@@ -2,19 +2,17 @@ import pygame
 import sys
 import random
 
-# Constants
 FRAME_SIZE_X, FRAME_SIZE_Y = 720, 480
 SNAKE_SIZE = 10
 DIFFICULTY = 25
 
-# Initialize pygame
 pygame.init()
 
-# Setup game window
+
 pygame.display.set_caption('Snake Eater')
 game_window = pygame.display.set_mode((FRAME_SIZE_X, FRAME_SIZE_Y))
 
-# Colors
+
 BLACK = pygame.Color(0, 0, 0)
 WHITE = pygame.Color(255, 255, 255)
 RED = pygame.Color(255, 0, 0)
@@ -23,10 +21,10 @@ GOLD = pygame.Color(255, 215, 0)
 BROWN = pygame.Color(139, 69, 19)
 DARK_GREEN = pygame.Color(0, 200, 0)
 
-# FPS controller
+
 fps_controller = pygame.time.Clock()
 
-# Load high score
+
 try:
     with open("highscore.txt", "r") as f:
         content = f.read().strip()
@@ -72,7 +70,7 @@ def main_game():
 
         direction = change_to
 
-        # Move snake
+     
         if direction == 'UP':
             snake_pos[1] -= SNAKE_SIZE
         elif direction == 'DOWN':
@@ -95,24 +93,24 @@ def main_game():
                         random.randrange(1, FRAME_SIZE_Y // SNAKE_SIZE) * SNAKE_SIZE]
             food_spawn = True
 
-        # Fill background
+     
         game_window.fill(BLACK)
 
-        # Draw snake
+        
         for pos in snake_body:
             pygame.draw.rect(game_window, GREEN, pygame.Rect(pos[0], pos[1], SNAKE_SIZE, SNAKE_SIZE), border_radius=3)
 
-        # Draw food (apple with stem and leaf)
+     
         pygame.draw.circle(game_window, RED, (food_pos[0] + 5, food_pos[1] + 5), 5)
         pygame.draw.rect(game_window, BROWN, (food_pos[0] + 4, food_pos[1] - 1, 2, 3))
         pygame.draw.circle(game_window, DARK_GREEN, (food_pos[0] + 7, food_pos[1]), 1)
 
-        # Check collisions with walls
+   
         if (snake_pos[0] < 0 or snake_pos[0] >= FRAME_SIZE_X or
             snake_pos[1] < 0 or snake_pos[1] >= FRAME_SIZE_Y):
             return score
 
-        # Check collisions with itself
+
         if snake_pos in snake_body[1:]:
             return score
 
